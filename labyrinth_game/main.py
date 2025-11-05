@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
 
-# Импорт модулей
-
-import constants
-import player_actions
-import utils
-
 # Импорт переменных и функций
 
 from constants import ROOMS
