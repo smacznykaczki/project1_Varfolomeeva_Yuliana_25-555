@@ -7,14 +7,66 @@ from constants import ROOMS
 from utils import describe_current_room
 from player_actions import get_input, show_inventory, move_player, take_item
 
-#Состояние игрока
-
-game_state = {
-    'player_inventory': [], # Инвентарь игрока
-    'current_room': 'entrance', # Текущая комната
-    'game_over': False, # Значения окончания игры
-    'steps_taken': 0 # Количество шагов
-  }
+def process_command(game_state, command):
+    """
+    Функция для обработки пользовательских команд
+    """
+    command = command.strip().lower()
+    if not command:
+        return
+    
+    # Разделяем строку на части, чтобы отделить команду от аргумента
+    parts = command.split()
+    main_command = parts[0]
+    argument = ' '.join(parts[1:]) if len(parts) > 1 else ''
+    
+    # Используем match/case для определения команды
+    match main_command:
+        case 'quit' | 'exit':
+            print("Спасибо за игру! До свидания!")
+            game_state['game_over'] = True
+        
+        case 'look':
+            describe_current_room(game_state)
+        
+        case 'inventory' | 'inv':
+            show_inventory(game_state)
+        
+        case 'go':
+            if argument in ['north', 'south', 'east', 'west']:
+                move_player(game_state, argument)
+            else:
+                print("Укажите направление: go [north/south/east/west]")
+        
+        case 'north' | 'south' | 'east' | 'west':
+            move_player(game_state, main_command)
+        
+        case 'take':
+            if argument:
+                take_item(game_state, argument)
+            else:
+                print("Укажите предмет: take [предмет]")
+        
+        case 'use':
+            if argument:
+                print(f"Пытаемся использовать: {argument}")
+                # Здесь будет логика использования предмета
+            else:
+                print("Укажите предмет: use [предмет]")
+        
+        case 'help':
+            print("\n=== СПРАВКА ПО КОМАНДАМ ===")
+            print("  look - осмотреться в текущей комнате")
+            print("  go [направление] - перемещение (north, south, east, west)")
+            print("  take [предмет] - взять предмет")
+            print("  use [предмет] - использовать предмет из инвентаря")
+            print("  inventory - показать инвентарь")
+            print("  help - показать эту справку")
+            print("  quit - выйти из игры")
+            print()
+        
+        case _:
+            print("Неизвестная команда. Введите 'help' для списка команд.")
 
 def main():
     """
@@ -30,16 +82,24 @@ def main():
     
     # Приветственное сообщение
     print("=== ДОБРО ПОЖАЛОВАТЬ В ЛАБИРИНТ СОКРОВИЩ! ===")
+    print("Используйте команды: look, go [направление], take [предмет], use [предмет], inventory, quit")
+    print("Введите 'help' для получения справки по командам")
     print("-" * 50)
     
     # Описываем стартовую комнату
     describe_current_room(game_state)
     
-    # Основной игровой цикл
+# Основной игровой цикл
     while not game_state['game_over']:
-        
-        # Считываем команду от пользователя
-        user_input = get_input("Введите команду: ").strip().lower()
+        try:
+            # Считываем команду от пользователя
+            user_input = get_input("Введите команду: ")
+            
+            # Обрабатываем команду через process_command
+            process_command(game_state, user_input)
+                
+        except Exception as e:
+            print(f"Произошла ошибка: {e}")
     
 if __name__ == "__main__":
     main()
