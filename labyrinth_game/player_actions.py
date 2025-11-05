@@ -1,3 +1,5 @@
+# labyrinth_game/player_actions.py
+
 from .constants import ROOMS
 
 def show_inventory(game_state):
@@ -14,3 +16,14 @@ def show_inventory(game_state):
     else:
         print("\nВаш инвентарь пуст.")
     print()  # Пустая строка для читабельности
+
+ 
+def get_input(prompt="> "):
+    """
+    Функция для безопасного ввода пользователя
+    """
+    try:
+        return input(prompt)
+    except (KeyboardInterrupt, EOFError):
+        print("\nВыход из игры.")
+        return "quit"
