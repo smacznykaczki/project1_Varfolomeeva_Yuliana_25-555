@@ -5,7 +5,7 @@
 
 from constants import ROOMS
 from utils import describe_current_room
-from player_actions import get_input, show_inventory, move_player, take_item
+from player_actions import get_input, show_inventory, move_player, take_item, use_item
 
 def process_command(game_state, command):
     """
@@ -49,8 +49,7 @@ def process_command(game_state, command):
         
         case 'use':
             if argument:
-                print(f"Пытаемся использовать: {argument}")
-                # Здесь будет логика использования предмета
+                use_item(game_state, argument)
             else:
                 print("Укажите предмет: use [предмет]")
         
