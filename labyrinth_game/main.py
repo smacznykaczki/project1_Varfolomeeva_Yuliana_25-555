@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+# labyrinth_game/main.py
 
 # Импорт переменных и функций
 
 from constants import ROOMS
 from utils import describe_current_room
-from player_actions import get_input
+from player_actions import get_input, show_inventory, move_player, take_item
 
 #Состояние игрока
 
