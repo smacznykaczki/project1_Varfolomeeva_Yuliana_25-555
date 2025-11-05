@@ -57,3 +57,26 @@ def move_player(game_state, direction):
         # Если выхода нет
         print("Нельзя пойти в этом направлении.")
         return False
+    
+def take_item(game_state, item_name):
+    """
+    Функция для взятия предмета из комнаты
+    """
+    current_room = game_state['current_room']
+    room_data = ROOMS[current_room]
+    
+    # Проверяем, есть ли предмет в комнате
+    if item_name in room_data['items']:
+        # Добавляем предмет в инвентарь игрока
+        game_state['player_inventory'].append(item_name)
+        
+        # Удаляем предмет из списка предметов комнаты
+        room_data['items'].remove(item_name)
+        
+        # Печатаем сообщение о том, что игрок подобрал предмет
+        print(f"Вы подняли: {item_name}")
+        return True
+    else:
+        # Если такого предмета в комнате нет
+        print("Такого предмета здесь нет.")
+        return False
