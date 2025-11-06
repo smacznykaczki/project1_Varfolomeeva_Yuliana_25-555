@@ -1,7 +1,7 @@
 # labyrinth_game/player_actions.py
 
 from .constants import ROOMS
-from .utils import describe_current_room
+from .utils import describe_current_room, attempt_open_treasure
 
 def show_inventory(game_state):
     """
@@ -103,13 +103,37 @@ def use_item(game_state, item_name):
     
     elif item_name == 'bronze_box':
         print("Вы открыли бронзовую шкатулку.")
+        found_something = False
+        
+        # Проверяем и добавляем rusty_key, если его нет
         if 'rusty_key' not in inventory:
-            print("Внутри вы нашли старый ржавый ключ!")
+            print("Внутри вы нашли старый ржавый ключ! 🗝️")
             game_state['player_inventory'].append('rusty_key')
-            return True
-        else:
+            found_something = True
+        
+        # Проверяем и добавляем treasure_key, если его нет
+        if 'treasure_key' not in inventory:
+            print("Внутри вы нашли ключ от сокровищницы! 🔑")
+            game_state['player_inventory'].append('treasure_key')
+            found_something = True
+        
+        # Если оба ключа уже есть
+        if not found_something:
             print("Шкатулка пуста.")
-            return True
+        
+        return True
+    
+    elif item_name == 'treasure_key':
+        # Если используем ключ в комнате с сокровищами
+        if game_state['current_room'] == 'treasure_room':
+            return attempt_open_treasure(game_state)
+        else:
+            print("Здесь не к чему применить этот ключ.")
+            return False
+    
+    elif item_name == 'rusty_key':
+        print("Этот ржавый ключ выглядит старым. Возможно, он от чего-то важного...")
+        return True
     
     else:
         # Для остальных предметов

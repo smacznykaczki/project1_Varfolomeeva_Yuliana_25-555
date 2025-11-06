@@ -5,7 +5,7 @@
 
 
 from .constants import ROOMS
-from .utils import describe_current_room, solve_puzzle
+from .utils import describe_current_room, solve_puzzle, attempt_open_treasure
 from .player_actions import get_input, show_inventory, move_player, take_item, use_item
 
 def process_command(game_state, command):
@@ -55,8 +55,12 @@ def process_command(game_state, command):
                 print("Укажите предмет: use [предмет]")
 
         case 'solve':
-            # Вызываем функцию решения загадки без аргументов
-            solve_puzzle(game_state)
+            # Если в комнате с сокровищами, пытаемся открыть сундук
+            if game_state['current_room'] == 'treasure_room':
+                attempt_open_treasure(game_state)
+            else:
+                # В других комнатах решаем обычные загадки
+                solve_puzzle(game_state)
         
         case 'help':
             print("\n=== СПРАВКА ПО КОМАНДАМ ===")
@@ -104,6 +108,14 @@ def main():
                 
         except Exception as e:
             print(f"Произошла ошибка: {e}")
+
+
+    # Поздравительное сообщение после победы
+    if game_state['game_over'] and game_state['current_room'] == 'treasure_room':
+        print("\n" + "="*50)
+        print("🎉 ПОЗДРАВЛЯЕМ С ПОБЕДОЙ! 🎉")
+        print(f"Вы прошли лабиринт за {game_state['steps_taken']} шагов!")
+        print("="*50)# Поздравительное сообщение после победы
     
 if __name__ == "__main__":
     main()
