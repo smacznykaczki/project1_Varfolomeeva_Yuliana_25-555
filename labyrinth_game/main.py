@@ -3,8 +3,9 @@
 
 # Импорт переменных и функций
 
+
 from .constants import ROOMS
-from .utils import describe_current_room
+from .utils import describe_current_room, solve_puzzle
 from .player_actions import get_input, show_inventory, move_player, take_item, use_item
 
 def process_command(game_state, command):
@@ -52,6 +53,10 @@ def process_command(game_state, command):
                 use_item(game_state, argument)
             else:
                 print("Укажите предмет: use [предмет]")
+
+        case 'solve':
+            # Вызываем функцию решения загадки без аргументов
+            solve_puzzle(game_state)
         
         case 'help':
             print("\n=== СПРАВКА ПО КОМАНДАМ ===")
