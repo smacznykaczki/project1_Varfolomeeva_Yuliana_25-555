@@ -111,7 +111,7 @@ def main():
 
 
     # Поздравительное сообщение после победы
-    if game_state['game_over'] and game_state['current_room'] == 'treasure_room':
+    if game_state['current_room'] == 'treasure_room' and 'treasure_chest' not in ROOMS['treasure_room']['items']:
         print("\n" + "="*50)
         print("🎉 ПОЗДРАВЛЯЕМ С ПОБЕДОЙ! 🎉")
         print(f"Вы прошли лабиринт за {game_state['steps_taken']} шагов!")
