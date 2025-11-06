@@ -1,6 +1,6 @@
 # labyrinth_game/utils.py
  
-from constants import ROOMS
+from .constants import ROOMS
  
 def describe_current_room(game_state):
     """
