@@ -34,6 +34,16 @@ def describe_current_room(game_state):
     print()  # Пустая строка для читабельности
 
 
+def get_puzzle_input(prompt="Ваш ответ: "):
+    """
+    Отдельная функция для ввода ответов на загадки
+    """
+    try:
+        return input(prompt)
+    except (KeyboardInterrupt, EOFError):
+        print("\nВы вышли из решения загадки.")
+        return ""
+ 
 def solve_puzzle(game_state):
     """
     Функция для решения загадок в текущей комнате
@@ -52,8 +62,13 @@ def solve_puzzle(game_state):
     # Выводим вопрос
     print(f"\nЗагадка: {question}")
     
-    # Получаем ответ от пользователя
-    user_answer = get_input("Ваш ответ: ").strip()
+    # Получаем ответ от пользователя через отдельную функцию
+    user_answer = get_puzzle_input("Ваш ответ: ").strip()
+    
+    # Если пользователь ничего не ввел
+    if not user_answer:
+        print("Вы не ввели ответ.")
+        return False
     
     # Сравниваем ответ пользователя с правильным ответом
     if user_answer.lower() == correct_answer.lower():
