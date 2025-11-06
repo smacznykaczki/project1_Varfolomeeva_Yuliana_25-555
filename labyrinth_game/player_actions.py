@@ -65,6 +65,11 @@ def take_item(game_state, item_name):
     current_room = game_state['current_room']
     room_data = ROOMS[current_room]
     
+    # Проверяем, не пытается ли игрок поднять сундук
+    if item_name == 'treasure_chest':
+        print('Вы не можете поднять сундук, он слишком тяжелый.')
+        return False
+
     # Проверяем, есть ли предмет в комнате
     if item_name in room_data['items']:
         # Добавляем предмет в инвентарь игрока
@@ -140,12 +145,8 @@ def use_item(game_state, item_name):
             return False
     
     elif item_name == 'treasure_chest':
-        # Если пытаемся использовать сундук в комнате с сокровищами
-        if game_state['current_room'] == 'treasure_room':
-            return attempt_open_treasure(game_state)
-        else:
-            print("Вы не можете использовать сундук здесь.")
-            return False
+        print("Вы не можете использовать сундук таким образом.")
+        return False
 
 
     elif item_name == 'rusty_key':
