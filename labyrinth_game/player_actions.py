@@ -86,6 +86,8 @@ def use_item(game_state, item_name):
     Функция для использования предмета из инвентаря
     """
     inventory = game_state['player_inventory']
+    current_room = game_state['current_room']
+    room_data = ROOMS[current_room]
     
     # Проверяем, есть ли предмет в инвентаре
     if item_name not in inventory:
@@ -124,13 +126,28 @@ def use_item(game_state, item_name):
         return True
     
     elif item_name == 'treasure_key':
-        # Если используем ключ в комнате с сокровищами
-        if game_state['current_room'] == 'treasure_room':
-            return attempt_open_treasure(game_state)
+        # Проверяем, есть ли в комнате сундук с сокровищами
+        if 'treasure_chest' in room_data['items']:
+            # Спрашиваем, применить ли ключ к сундуку
+            answer = get_input("Применить ключ к сундуку с сокровищами? (да/нет): ").strip().lower()
+            if answer == 'да':
+                return attempt_open_treasure(game_state)
+            else:
+                print("Вы решаете не использовать ключ сейчас.")
+                return False
         else:
             print("Здесь не к чему применить этот ключ.")
             return False
     
+    elif item_name == 'treasure_chest':
+        # Если пытаемся использовать сундук в комнате с сокровищами
+        if game_state['current_room'] == 'treasure_room':
+            return attempt_open_treasure(game_state)
+        else:
+            print("Вы не можете использовать сундук здесь.")
+            return False
+
+
     elif item_name == 'rusty_key':
         print("Этот ржавый ключ выглядит старым. Возможно, он от чего-то важного...")
         return True
