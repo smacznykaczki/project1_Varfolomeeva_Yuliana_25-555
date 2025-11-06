@@ -1,7 +1,7 @@
 # labyrinth_game/player_actions.py
 
-from constants import ROOMS
-from utils import describe_current_room
+from .constants import ROOMS
+from .utils import describe_current_room
 
 def show_inventory(game_state):
     """
