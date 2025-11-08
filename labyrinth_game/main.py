@@ -5,7 +5,7 @@
 
 
 from .constants import ROOMS
-from .utils import describe_current_room, solve_puzzle, attempt_open_treasure
+from .utils import describe_current_room, solve_puzzle, attempt_open_treasure, show_help
 from .player_actions import get_input, show_inventory, move_player, take_item, use_item
 
 def process_command(game_state, command):
@@ -63,15 +63,7 @@ def process_command(game_state, command):
                 solve_puzzle(game_state)
         
         case 'help':
-            print("\n=== СПРАВКА ПО КОМАНДАМ ===")
-            print("  look - осмотреться в текущей комнате")
-            print("  go [направление] - перемещение (north, south, east, west)")
-            print("  take [предмет] - взять предмет")
-            print("  use [предмет] - использовать предмет из инвентаря")
-            print("  inventory - показать инвентарь")
-            print("  help - показать эту справку")
-            print("  quit - выйти из игры")
-            print()
+            show_help()
         
         case _:
             print("Неизвестная команда. Введите 'help' для списка команд.")
