@@ -1,7 +1,7 @@
 # labyrinth_game/utils.py
 
 import math 
-from .constants import ROOMS
+from .constants import ROOMS, COMMANDS
  
 def describe_current_room(game_state):
     """
@@ -202,14 +202,13 @@ def show_help():
     Функция для показа справки по командам
     """
     print("\n=== СПРАВКА ПО КОМАНДАМ ===")
-    print("  look - осмотреться в текущей комнате")
-    print("  go [направление] - перемещение (north, south, east, west)")
-    print("  take [предмет] - взять предмет")
-    print("  use [предмет] - использовать предмет из инвентаря")
-    print("  inventory - показать инвентарь")
-    print("  solve - решить загадку/открыть сундук")
-    print("  help - показать эту справку")
-    print("  quit - выйти из игры")
+    
+    # Выводим команды с красивым форматированием
+    for command, description in COMMANDS.items():
+        # Форматируем команду: выравниваем слева и дополняем пробелами до 16 символов
+        formatted_command = command.ljust(16)
+        print(f"  {formatted_command} - {description}")
+    
     print()
 
 def pseudo_random(seed, modulo):
