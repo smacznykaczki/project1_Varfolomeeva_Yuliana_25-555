@@ -38,16 +38,37 @@ def move_player(game_state, direction):
     
     if direction in room_data['exits']:
         new_room = room_data['exits'][direction]
-        game_state['current_room'] = new_room
-        game_state['steps_taken'] += 1
-        print(f"Вы переместились {direction}.")
         
-        # Вызываем случайное событие после успешного перемещения
-        random_event(game_state)
-        
-        # Выводим описание новой комнаты
-        describe_current_room(game_state)
-        return True
+        # Проверяем, если пользователь пытается перейти в treasure_room
+        if new_room == 'treasure_room':
+            # Проверяем наличие rusty_key в инвентаре
+            if 'rusty_key' in game_state['player_inventory']:
+                print("Вы используете найденный ключ, чтобы открыть путь в комнату сокровищ. 🗝️")
+                game_state['current_room'] = new_room
+                game_state['steps_taken'] += 1
+                print(f"Вы переместились {direction}.")
+                
+                # Вызываем случайное событие после успешного перемещения
+                random_event(game_state)
+                
+                # Выводим описание новой комнаты
+                describe_current_room(game_state)
+                return True
+            else:
+                print("Дверь заперта. Нужен ключ, чтобы пройти дальше. 🔒")
+                return False
+        else:
+            # Обычное перемещение в другие комнаты
+            game_state['current_room'] = new_room
+            game_state['steps_taken'] += 1
+            print(f"Вы переместились {direction}.")
+            
+            # Вызываем случайное событие после успешного перемещения
+            random_event(game_state)
+            
+            # Выводим описание новой комнаты
+            describe_current_room(game_state)
+            return True
     else:
         print("Нельзя пойти в этом направлении.")
         return False
