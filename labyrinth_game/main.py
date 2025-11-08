@@ -39,6 +39,7 @@ def process_command(game_state, command):
             else:
                 print("Укажите направление: go [north/south/east/west]")
         
+        # Односложные команды движения без слова "go"
         case 'north' | 'south' | 'east' | 'west':
             move_player(game_state, main_command)
         
@@ -53,9 +54,9 @@ def process_command(game_state, command):
                 use_item(game_state, argument)
             else:
                 print("Укажите предмет: use [предмет]")
-
+        
         case 'solve':
-            # Если в комнате с сокровищами, пытаемся открыть сундук
+            # Если игрок находится в treasure_room, вызываем attempt_open_treasure
             if game_state['current_room'] == 'treasure_room':
                 attempt_open_treasure(game_state)
             else:
