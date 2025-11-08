@@ -1,5 +1,6 @@
 # labyrinth_game/utils.py
- 
+
+import math 
 from .constants import ROOMS
  
 def describe_current_room(game_state):
@@ -158,3 +159,22 @@ def show_help():
     print("  help - показать эту справку")
     print("  quit - выйти из игры")
     print()
+
+def pseudo_random(seed, modulo):
+    """
+    Псевдослучайный генератор на основе синуса
+    Возвращает целое число в диапазоне [0, modulo)
+    """
+    # Берем синус от seed, умноженного на большое число с дробной частью
+    sin_value = math.sin(seed * 12.9898)
+    
+    # Умножаем на другое большое число с дробной частью
+    multiplied_value = sin_value * 43758.5453
+    
+    # Получаем дробную часть
+    fractional_part = multiplied_value - math.floor(multiplied_value)
+    
+    # Приводим к нужному диапазону и возвращаем целое число
+    result = math.floor(fractional_part * modulo)
+    
+    return result
