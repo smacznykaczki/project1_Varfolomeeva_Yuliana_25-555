@@ -133,13 +133,7 @@ def use_item(game_state, item_name):
             game_state['player_inventory'].append('rusty_key')
             found_something = True
         
-        # Проверяем и добавляем treasure_key, если его нет
-        if 'treasure_key' not in inventory:
-            print("Внутри вы нашли ключ от сокровищницы! 🔑")
-            game_state['player_inventory'].append('treasure_key')
-            found_something = True
-        
-        # Если оба ключа уже есть
+        # Если ключ уже есть
         if not found_something:
             print("Шкатулка пуста.")
         
