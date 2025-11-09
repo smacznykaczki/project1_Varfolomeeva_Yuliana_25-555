@@ -5,16 +5,24 @@
 
 ## 2. Установка проекта
 Установите проект в терминале
+
 _С помощью make_
+
 make install
+
 _С помощью poetry_
+
 poetry install
 
 ## 3. Запуск проекта
 Запуск проекта в терминале
+
 _С помощью make_
+
 make project
+
 _С помощью poetry_
+
 poetry run project
 
 ## 4. Лицензия
@@ -24,13 +32,21 @@ poetry run project
 project1/
 
 ├── dist/
+
 ├── labyrinth_game/
+
 │   ├── __init__.py
+
 │   ├── main.py
+
 ├── Makefile
+
 ├── poetry.lock
+
 ├── pyproject.toml
+
 ├── README.md
+
 └── .gitignore 
 
 
