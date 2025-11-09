@@ -1,8 +1,10 @@
 # labyrinth_game/utils.py
 
-import math 
-from .constants import ROOMS, COMMANDS
- 
+import math
+
+from .constants import COMMANDS, ROOMS
+
+
 def describe_current_room(game_state):
     """
     Функция для описания текущей комнаты

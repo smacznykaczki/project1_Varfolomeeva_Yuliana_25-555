@@ -1,7 +1,8 @@
 # labyrinth_game/player_actions.py
 
 from .constants import ROOMS
-from .utils import describe_current_room, attempt_open_treasure, random_event
+from .utils import attempt_open_treasure, describe_current_room, random_event
+
 
 def show_inventory(game_state):
     """
@@ -43,7 +44,7 @@ def move_player(game_state, direction):
         if new_room == 'treasure_room':
             # Проверяем наличие rusty_key в инвентаре
             if 'rusty_key' in game_state['player_inventory']:
-                print("Вы используете найденный ключ, чтобы открыть путь в комнату сокровищ. 🗝️")
+                print("Вы используете найденный ключ, чтобы открыть путь в комнату сокровищ. 🗝️") # noqa: E501
                 game_state['current_room'] = new_room
                 game_state['steps_taken'] += 1
                 print(f"Вы переместились {direction}.")
@@ -143,7 +144,7 @@ def use_item(game_state, item_name):
         # Проверяем, есть ли в комнате сундук с сокровищами
         if 'treasure_chest' in room_data['items']:
             # Спрашиваем, применить ли ключ к сундуку
-            answer = get_input("Применить ключ к сундуку с сокровищами? (да/нет): ").strip().lower()
+            answer = get_input("Применить ключ к сундуку с сокровищами? (да/нет): ").strip().lower() # noqa: E501
             if answer == 'да':
                 return attempt_open_treasure(game_state)
             else:

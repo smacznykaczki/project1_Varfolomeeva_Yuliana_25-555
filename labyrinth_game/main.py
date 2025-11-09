@@ -5,8 +5,9 @@
 
 
 from .constants import ROOMS
-from .utils import describe_current_room, solve_puzzle, attempt_open_treasure, show_help
-from .player_actions import get_input, show_inventory, move_player, take_item, use_item
+from .player_actions import get_input, move_player, show_inventory, take_item, use_item
+from .utils import attempt_open_treasure, describe_current_room, show_help, solve_puzzle
+
 
 def process_command(game_state, command):
     """
@@ -83,7 +84,7 @@ def main():
     
     # Приветственное сообщение
     print("=== ДОБРО ПОЖАЛОВАТЬ В ЛАБИРИНТ СОКРОВИЩ! ===")
-    print("Используйте команды: look, go [направление], take [предмет], use [предмет], inventory, solve, quit")
+    print("Используйте команды: look, go [направление], take [предмет], use [предмет], inventory, solve, quit") # noqa: E501
     print("Введите 'help' для получения справки по командам")
     print("-" * 50)
     
@@ -104,7 +105,7 @@ def main():
 
 
     # Поздравительное сообщение после победы
-    if game_state['current_room'] == 'treasure_room' and 'treasure_chest' not in ROOMS['treasure_room']['items']:
+    if game_state['current_room'] == 'treasure_room' and 'treasure_chest' not in ROOMS['treasure_room']['items']: # noqa: E501
         print("\n" + "="*50)
         print("🎉 ПОЗДРАВЛЯЕМ С ПОБЕДОЙ! 🎉")
         print(f"Вы прошли лабиринт за {game_state['steps_taken']} шагов!")
